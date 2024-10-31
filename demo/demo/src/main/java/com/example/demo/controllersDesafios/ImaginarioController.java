@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dtoDesafios.NumImaginario;
 
-@CrossOrigin(origins = {"http://localhost:5257"})
 @RestController
 // @RequestMapping("")
 public class ImaginarioController {

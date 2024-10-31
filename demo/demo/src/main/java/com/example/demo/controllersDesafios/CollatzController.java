@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dtoDesafios.Collatz;
 
-@CrossOrigin(origins = {"http://localhost:5257"})
 @RestController
 public class CollatzController {
     @GetMapping("/collatz")

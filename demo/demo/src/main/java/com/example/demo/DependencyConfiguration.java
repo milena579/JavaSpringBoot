@@ -5,7 +5,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
 import com.example.demo.impl.ExempleLoginService;
+import com.example.demo.implDesafios.ImpleEhPalindromo;
 import com.example.demo.services.LoginService;
+import com.example.demo.servicesDesafios.EhPalindromoService;
 
 @Configuration
 public class DependencyConfiguration {
@@ -17,5 +19,11 @@ public class DependencyConfiguration {
     // session -- cria uma sessão expecífica do servidor com o navegador 
     public LoginService loginService(){
         return new ExempleLoginService();
+    }
+
+    @Bean
+    @Scope("singleton")
+    public EhPalindromoService ehPalindromoService(){
+        return new ImpleEhPalindromo();
     }
 }

@@ -1,27 +1,32 @@
 package com.example.demo.controllersDesafios;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dtoDesafios.EhPalindromo;
+import com.example.demo.implDesafios.ImpleEhPalindromo;
+import com.example.demo.servicesDesafios.EhPalindromoService;
 
-@CrossOrigin(origins = {"http://localhost:5257"})
 @RestController
 @RequestMapping("/reverse")
 public class ReverseController {
+    @Autowired
+    EhPalindromoService service;
+    
     @GetMapping("/{palavra}")
-
-    public EhPalindromo testando(@PathVariable String palavra){
-        StringBuffer buffer = new StringBuffer(palavra);
-        buffer.reverse();
-        String data = buffer.toString();
- 
-        if (palavra.equals(data)) {
-            return new EhPalindromo(palavra, true);
-        }
-        return new EhPalindromo(palavra, false);
+    public ResponseEntity<EhPalindromo> validando(@PathVariable String palavra){
+       ImpleEhPalindromo palindromo = new ImpleEhPalindromo();
+       if (palavra == null){
+            return ResponseEntity 
+                .status(400)
+                .build();
+       }
+       
+       var result = palindromo.verificar(palavra);
+       return ResponseEntity.ok(result);
     }
 }
