@@ -5,8 +5,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
 import com.example.demo.impl.ExempleLoginService;
+import com.example.demo.implDesafios.ImpleCepCpf;
 import com.example.demo.implDesafios.ImpleEhPalindromo;
 import com.example.demo.services.LoginService;
+import com.example.demo.servicesDesafios.CepCpfService;
 import com.example.demo.servicesDesafios.EhPalindromoService;
 
 @Configuration
@@ -25,5 +27,11 @@ public class DependencyConfiguration {
     @Scope("singleton")
     public EhPalindromoService ehPalindromoService(){
         return new ImpleEhPalindromo();
+    }
+
+    @Bean
+    @Scope("singleton")
+    public CepCpfService validaCepCpfService(){
+        return new ImpleCepCpf();
     }
 }

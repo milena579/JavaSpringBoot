@@ -1,40 +1,35 @@
-// package com.example.demo.controllersDesafios;
+package com.example.demo.controllersDesafios;
 
-// import org.springframework.http.HttpRequest;
-// import org.springframework.http.ResponseEntity;
-// import org.springframework.web.bind.annotation.CrossOrigin;
-// import org.springframework.web.bind.annotation.GetMapping;
-// import org.springframework.web.bind.annotation.RequestParam;
-// import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-// import com.example.demo.dtoDesafios.CepCpf;
-// import com.example.demo.dtoDesafios.Endereco;
-// import java.net.http.HttpResponse;
-// import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.demo.dtoDesafios.CepCpf;
+import com.example.demo.implDesafios.ImpleCepCpf;
+import com.example.demo.servicesDesafios.CepCpfService;
 
-// import java.net.http.HttpClient;
-// import java.net.URI;
+@RestController
+@RequestMapping("/cpdcep")
+public class ValidaCepCpfController {
+    @Autowired
+    CepCpfService service;
 
-// @CrossOrigin(origins = {"http://localhost:5257"})
-// @RestController
-// public class ValidaCepCpfController {
-//     @GetMapping("/collatz")
-    
-//     String webService = "http://viacep.com.br/ws/";
-//     Integer codigoSucesso = 200;
+    @GetMapping("/{cep}{cpf}")
+    public ResponseEntity<CepCpf> validando(@PathVariable String cpf, @PathVariable String cep){
+        ImpleCepCpf validaCpf = new ImpleCepCpf();
 
-//     public ResponseEntity<CepCpf> validando(@RequestParam(value = "cep") Integer cep, @RequestParam(value = "cpf") Integer cpf){
-    
-//     final HttpRequest request = HttpRequest.newBuilder(URI.create("https://viacep.com.br/ws/%s/json/".formatted(cep))).build();
+        if (cpf == null){
+            return ResponseEntity 
+                .status(400)
+                .build();
+       }
 
-//     final HttpClient client = HttpClient.newHttpClient();
+       var result = validaCpf.valida(cpf);
 
-//     final HttpResponse<String> response = client.send(request, body.ofString());
+       return ResponseEntity.ok(result);
+    }
 
-//     final ObjectMapper objectMapper = new ObjectMapper();
-
-//     final Endereco endereco = objectMapper.readValue(response.body(), Endereco.class);
-
-
-//     }
-// }
+}
