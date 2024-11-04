@@ -12,24 +12,19 @@ import com.example.demo.implDesafios.ImpleCepCpf;
 import com.example.demo.servicesDesafios.CepCpfService;
 
 @RestController
-@RequestMapping("/cpdcep")
+@RequestMapping("/curitiba")
 public class ValidaCepCpfController {
     @Autowired
     CepCpfService service;
 
-    @GetMapping("/{cep}{cpf}")
-    public ResponseEntity<CepCpf> validando(@PathVariable String cpf, @PathVariable String cep){
-        ImpleCepCpf validaCpf = new ImpleCepCpf();
+    @GetMapping
+    public ResponseEntity<CepCpf> validando(String cpf, String cep){
+       var result = service.valida(cpf, cep);
 
-        if (cpf == null){
-            return ResponseEntity 
-                .status(400)
-                .build();
-       }
-
-       var result = validaCpf.valida(cpf);
+       System.out.println("Teste");
 
        return ResponseEntity.ok(result);
+
     }
 
 }
