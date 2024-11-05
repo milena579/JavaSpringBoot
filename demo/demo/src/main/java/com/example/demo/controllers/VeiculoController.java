@@ -22,7 +22,7 @@ public class VeiculoController {
     VeiculoRepositorio repo; //faz com que o controller dependa de um servico
 
     @GetMapping("/{id}")
-    public ResponseEntity<Veiculo> getById(@PathVariable Long id){
+    public ResponseEntity<Veiculo> getById (@PathVariable Long id){
         var veiculo = repo.findById(id);
 
         if(!veiculo.isPresent()){
