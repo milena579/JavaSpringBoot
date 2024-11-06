@@ -10,5 +10,5 @@ import com.example.demo.model.UserData;
 @Repository
 public interface UserRepository extends JpaRepository<UserData, Long>{
     List<UserData> findByEmail(String email);
-    List<UserData> findByName(String username);
+    List<UserData> findByUsername(String username);
 }

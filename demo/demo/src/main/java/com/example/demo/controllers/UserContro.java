@@ -12,7 +12,7 @@ import com.example.demo.services.LoginService;
 
 @RestController
 @RequestMapping("/user")
-public class UserController {      
+public class UserContro {      
     @Autowired
     LoginService service;
 
