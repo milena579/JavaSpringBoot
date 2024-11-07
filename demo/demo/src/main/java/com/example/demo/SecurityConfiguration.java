@@ -1,15 +1,23 @@
 package com.example.demo;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.example.demo.dtoDesafios.Token;
+import com.example.demo.filters.JWTAuthenticationFilter;
+import com.example.demo.servicesDesafios.JWTService;
+
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
+    @Autowired
+    JWTService<Token> jwtService;
     
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -21,7 +29,7 @@ public class SecurityConfiguration {
                 .anyRequest()
                 .anonymous()
             )
-            .rememberMe(Customizer.withDefaults())
+           .addFilterBefore(new JWTAuthenticationFilter(jwtService), UsernamePasswordAuthenticationFilter.class)
             .build();
     }
 

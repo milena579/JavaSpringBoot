@@ -1,8 +1,6 @@
 package com.example.demo.implDesafios;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 import com.example.demo.model.UserData;
 import com.example.demo.repositories.UserRepository;
@@ -108,9 +106,10 @@ public class ImpleUserSecurity implements UserService {
             return null;
         }
 
-        if(!user.get(0).getPassword().equals(password)){
+        if(!encoder.verificarSenha(password, user.get(0).getPassword())) {
             return null;
         }
+
 
         return user.get(0);
     }
@@ -134,7 +133,5 @@ public class ImpleUserSecurity implements UserService {
 
         return user;
     }
-
-
 }
 

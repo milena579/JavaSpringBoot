@@ -8,5 +8,4 @@ import com.example.demo.model.City;
 
 public interface CitiesRepository extends JpaRepository<City, Long> {
     List<City> findByCity(String city);
-
 }

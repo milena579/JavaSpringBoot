@@ -1,4 +1,4 @@
-package com.example.demo.dto;
+// package com.example.demo.dto;
 
 
-public record LoginData (String Login,String password) {}
+// public record LoginData (String Login,String password) {}
