@@ -26,8 +26,9 @@ public class SecurityConfiguration {
             .authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/**")
                 .permitAll()
-                .anyRequest()
-                .anonymous()
+                .requestMatchers("/product").authenticated()
+                // .anyRequest()
+                // .anonymous()
             )
            .addFilterBefore(new JWTAuthenticationFilter(jwtService), UsernamePasswordAuthenticationFilter.class)
             .build();

@@ -9,11 +9,13 @@ import com.example.demo.implDesafios.BcryptPasswordEncoderService;
 import com.example.demo.implDesafios.DefaultJWTImple;
 import com.example.demo.implDesafios.ImpleCepCpf;
 import com.example.demo.implDesafios.ImpleEhPalindromo;
+import com.example.demo.implDesafios.ImpleProduto;
 import com.example.demo.implDesafios.ImpleUserSecurity;
 import com.example.demo.servicesDesafios.CepCpfService;
 import com.example.demo.servicesDesafios.EhPalindromoService;
 import com.example.demo.servicesDesafios.JWTService;
 import com.example.demo.servicesDesafios.PasswordEncoderService;
+import com.example.demo.servicesDesafios.ProdutoService;
 import com.example.demo.servicesDesafios.UserService;
 
 @Configuration
@@ -61,5 +63,10 @@ public class DependencyConfiguration {
         return new DefaultJWTImple();
     }
 
+    @Bean
+    @Scope("singleton")
+    public ProdutoService productService() {
+        return new ImpleProduto();
+    }
 
 }

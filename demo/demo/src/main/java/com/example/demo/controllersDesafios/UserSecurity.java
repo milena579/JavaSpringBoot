@@ -19,13 +19,23 @@ import com.example.demo.servicesDesafios.JWTService;
 import com.example.demo.servicesDesafios.UserService;
 
 @RestController
-public class UserController {
+public class UserSecurity {
 
     @Autowired
     UserService service;
+    
+    @Autowired
+    UserRepository repo;
 
-    @PostMapping("/create")
-    public ResponseEntity<String> cadastro (@RequestBody User data ){
+    @Autowired 
+    BcryptPasswordEncoderService encoder;
+
+    @Autowired
+    JWTService<Token> jwtService;
+
+
+    @PostMapping("/user")
+    public ResponseEntity<String> cadastroSecurity (@RequestBody User data ){
         
         if(!service.validaEmail(data.email())){
             return new ResponseEntity<>("Email invalido", HttpStatus.OK);
@@ -48,6 +58,34 @@ public class UserController {
         return new ResponseEntity<>("Usuário cadastrado", HttpStatus.OK);
     }
 
-   
+    @PostMapping("/login")
+    public ResponseEntity<TokenData> create(@RequestBody LoginUser loginData) {
+
+        if (loginData.login() == null || loginData.password() == null) {
+            return new ResponseEntity<>(new TokenData("Dados Inválidos", ""), HttpStatus.OK);
+
+        }
+    
+        var users = repo.login(loginData.login());
+
+        if (users.isEmpty()) {
+            return new ResponseEntity<>(new TokenData("Dados Inválidos", ""), HttpStatus.OK);
+        }
+
+        var user = users.get(0);
+
+        if (!encoder.verificarSenha(loginData.password(), user.getPassword())) {
+            return new ResponseEntity<>(new TokenData("Senha não compatível", ""), HttpStatus.OK);
+        }
+
+        Token token = new Token();
+        token.setId(user.getId());
+        token.setNome(user.getUsername());
+        token.setEmail(user.getEmail());
+        
+        var jwt = jwtService.get(token);
+
+        return new ResponseEntity<>(new TokenData("Token gerado com sucesso!", jwt), HttpStatus.OK);
+    }
 
 }
